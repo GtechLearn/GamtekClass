@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id" class="w-full h-full overflow-hidden">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0f19">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Judul Aplikasi Web Wrapper -->
+  <title>GamTekClass</title>
+
+  <!-- Meta SEO Dasar -->
+  <meta name="description" content="Media Pembelajaran Interaktif" />
+
+  <!-- Favicon Tab Browser & Home Screen Icon -->
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ramdanpurnama35-hue/logo/main/Picsart_26-08-10_15-23-34-706.png">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/ramdanpurnama35-hue/logo/main/Picsart_26-08-10_15-23-34-706.png">
+
+  <!-- Tailwind CSS untuk Styling Responsive & Loading State -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Reset total margin & padding untuk mencegah scrollbar tak diinginkan */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+      height: 100% !important;
+      height: 100dvh !important;
+      overflow: hidden !important;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #0b0f19;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-text-size-adjust: 100%;
+      touch-action: manipulation;
+    }
+
+    /* Styling iFrame Responsif Penuh (100dvh tanpa ukuran tetap) */
+    #app-frame {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      height: 100% !important;
+      height: 100dvh !important;
+      border: none !important;
+      outline: none !important;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden !important;
+      z-index: 1;
+    }
+
+    /* Animasi Dual-Ring Spinner Neon Green Zettbos */
+    @keyframes spin-custom {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .animate-spin-custom {
+      animation: spin-custom 0.9s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-100 antialiased overflow-hidden select-none">
+
+  <!-- Screen Loading Indicator (Clean Minimalist Loading) -->
+  <div id="loader-screen" class="fixed inset-0 w-full max-w-full h-full h-[100dvh] bg-[#0b0f19] flex flex-col justify-center items-center z-[9999] transition-opacity duration-500 ease-in-out p-4">
+    
+    <!-- Animasi Neon Glow & Spinner Utama -->
+    <div class="relative flex flex-col items-center justify-center">
+      
+      <!-- Ambient Glow Effect di Belakang Spinner -->
+      <div class="absolute w-24 h-24 sm:w-28 sm:h-28 bg-[#00ffaa] blur-3xl opacity-20 rounded-full pointer-events-none"></div>
+
+      <!-- Dual Ring Loader Circle -->
+      <div class="relative w-14 h-14 sm:w-16 sm:h-16 flex justify-center items-center mb-5">
+        <div class="absolute inset-0 border-4 border-[#00ffaa]/15 rounded-full"></div>
+        <div class="absolute inset-0 border-4 border-transparent border-t-[#00ffaa] border-r-[#00ffaa]/50 rounded-full animate-spin-custom"></div>
+      </div>
+
+      <!-- Teks Informasi Pembuatan Aplikasi -->
+      <h1 class="text-base sm:text-lg font-medium tracking-wide text-slate-200 text-center">GamTek Class</h1>
+      <p class="text-xs text-slate-400 mt-1 text-center font-normal tracking-wider">Memuat aplikasi...</p>
+    </div>
+
+  </div>
+
+  <!-- Web App iFrame Target -->
+  <iframe 
+    id="app-frame" 
+    src="https://script.google.com/macros/s/AKfycbw85RtaLz_Elv7NO2hsvAJYBqwmpXYs74c2of-fEet9DoeZbnvYD3l8szkjrdxxg_k/exec"
+    allow="geolocation; microphone; camera; midi; encrypted-media; autoplay; clipboard-write"
+    onload="hideLoader()">
+  </iframe>
+
+  <script>
+    // Fungsi menyembunyikan loader saat iframe selesai dimuat sempurna
+    function hideLoader() {
+      const loader = document.getElementById('loader-screen');
+      if (loader) {
+        loader.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }
+    }
+
+    // Penanganan mode aman Canvas ZettBOT
+    if (typeof google !== 'undefined') {
+      console.log('ZettBOT Safe Preview Mode Active');
+    }
+
+    // Safety Timeout: Otomatis sembunyikan loader jika waktu muat melebihi 7 detik
+    setTimeout(() => {
+      hideLoader();
+    }, 7000);
+  </script>
+</body>
+</html>
